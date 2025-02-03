@@ -1,0 +1,25 @@
+services:
+  whipser:
+    build:
+      dockerfile: Dockerfile.vulkan
+      context: .
+      args:
+        - BASE_IMAGE_BUILD=rocm/dev-ubuntu-22.04:6.3.2-complete
+        - BASE_IMAGE_RUN=rocm/dev-ubuntu-22.04:6.3.2
+    environment:
+      - PORT=9001
+      - MODEL=/model.bin
+    ports:
+      - 9001:9001
+    volumes:
+      - $WHISPER_MODEL_PATH:/model.bin
+    ipc: host
+    group_add:
+      - video
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp=unconfined
+    devices:
+      - /dev/kfd
+      - /dev/dri

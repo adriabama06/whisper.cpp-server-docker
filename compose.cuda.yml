@@ -1,0 +1,19 @@
+services:
+  whipser:
+    build:
+      dockerfile: Dockerfile.cuda
+      context: .
+    environment:
+      - PORT=9001
+      - MODEL=/model.bin
+    ports:
+      - 9001:9001
+    volumes:
+      - $WHISPER_MODEL_PATH:/model.bin
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['0']
+              capabilities: [gpu]

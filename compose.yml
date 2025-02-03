@@ -1,0 +1,12 @@
+services:
+  whipser:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    environment:
+      - PORT=9001
+      - MODEL=/model.bin
+    ports:
+      - 9001:9001
+    volumes:
+      - $WHISPER_MODEL_PATH:/model.bin
