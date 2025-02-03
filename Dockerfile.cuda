@@ -30,5 +30,7 @@ RUN cmake -B build -DGGML_CUDA=1 && cmake --build build -j --config Release
 
 COPY ./start.sh ./start.sh
 
+RUN chmod +x ./start.sh
+
 ENTRYPOINT [ "bash", "-c" ]
 CMD [ "./start.sh" ]

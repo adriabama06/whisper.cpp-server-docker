@@ -20,5 +20,7 @@ COPY --from=build /whisper.cpp /whisper.cpp
 
 COPY ./start.sh ./start.sh
 
+RUN chmod +x ./start.sh
+
 ENTRYPOINT [ "bash", "-c" ]
 CMD [ "./start.sh" ]
