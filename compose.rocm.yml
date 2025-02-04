@@ -10,7 +10,7 @@ services:
       - PORT=9001
       - MODEL=/model.bin
     ports:
-      - 9001:9001
+      - ${PORT:-9001}:9001
     volumes:
       - $WHISPER_MODEL_PATH:/model.bin
     ipc: host
