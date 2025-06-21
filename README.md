@@ -58,8 +58,12 @@ docker compose -f compose.cuda.yml up -d
 
 ### 🔥 ROCm (AMD GPUs)  
 
+> ⚠️ Use `rocminfo | grep gfx` to know your AMDGPU_TARGETS and HSA_OVERRIDE_GFX_VERSION
+
 ```bash
 WHISPER_MODEL_PATH=./models/ggml-large-v3-turbo_q8.bin \
+AMDGPU_TARGETS=gfx1030 \
+HSA_OVERRIDE_GFX_VERSION='10.3.0' \
 docker compose -f compose.rocm.yml up -d
 ```
 

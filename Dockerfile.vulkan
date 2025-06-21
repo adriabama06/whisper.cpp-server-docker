@@ -15,7 +15,7 @@ RUN apt update -y && apt install -y vulkan-sdk
 
 RUN git clone https://github.com/ggerganov/whisper.cpp.git --depth 1 .
 
-RUN cmake -B build -DGGML_VULKAN=1 && cmake --build build -j --config Release
+RUN cmake -B build -DGGML_VULKAN=1 -DCMAKE_BUILD_TYPE=Release && cmake --build build -j --config Release
 
 FROM ${BASE_IMAGE_RUN} AS runtime
 

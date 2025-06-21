@@ -1,11 +1,13 @@
 services:
   whipser:
     build:
-      dockerfile: Dockerfile.vulkan
+      dockerfile: Dockerfile.vulkan # Dockerfile.rocm idk why in my GPU (iGPU is faster vulkan than HIP)
       context: .
       args:
         - BASE_IMAGE_BUILD=rocm/dev-ubuntu-22.04:6.3.2-complete
         - BASE_IMAGE_RUN=rocm/dev-ubuntu-22.04:6.3.2
+        - AMDGPU_TARGETS=${AMDGPU_TARGETS}
+        - HSA_OVERRIDE_GFX_VERSION=${HSA_OVERRIDE_GFX_VERSION}
     restart: unless-stopped
     healthcheck:
       test: curl --fail http://localhost:9001 || exit 1
@@ -16,6 +18,7 @@ services:
     environment:
       - PORT=9001
       - MODEL=/model.bin
+      - HSA_OVERRIDE_GFX_VERSION=${HSA_OVERRIDE_GFX_VERSION}
     ports:
       - ${PORT:-9001}:9001
     volumes:
